@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+    <!--The background here is the color of the page-->
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+    </RelativeLayout>
+
+
+    <!--Email text area-->
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="262dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginBottom="16dp"
+        android:hint="example_email@gmail.com"
+        android:textColorHint="#333333"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <!--Password text area-->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="264dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/password"
+        android:hint="password"
+        android:textColorHint="#333333"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        tools:ignore="MissingConstraints" />
+
+    <!--Sign in button-->
+    <android.widget.Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/gradient"
+        android:onClick="home"
+        android:text="sign in"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        tools:ignore="MissingConstraints"></android.widget.Button>
+
+    <android.widget.Button
+        android:id="@+id/register_butt"
+        android:layout_width="139dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:text="Register here!"
+        android:textColor="#00FFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
+        app:layout_constraintVertical_bias="0.055" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
