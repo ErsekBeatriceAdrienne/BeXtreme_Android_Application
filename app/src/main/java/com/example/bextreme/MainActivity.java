@@ -14,8 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bextreme.models.User;
+
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
+    private HashMap <Integer, User> users = new HashMap<>();
     private Button sign_in_button, register_button;
     private EditText email_text;
     private String entered_email;
@@ -44,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
                 open_registration_page();
             }
         });
+    }
+
+    public void sign_up_user(User user) {
+        users.put(user.getPhone_number(),user);
+    }
+
+    public HashMap <Integer, User> getUsers() {
+        return users;
     }
 
     private void open_app_home_page() {

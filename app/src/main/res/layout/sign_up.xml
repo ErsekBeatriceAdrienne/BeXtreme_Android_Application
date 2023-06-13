@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="@+id/location_code"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/location_code"
-        app:layout_constraintTop_toBottomOf="@+id/email_code"
+        app:layout_constraintTop_toBottomOf="@+id/phone_code"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
@@ -25,15 +25,16 @@
         android:id="@+id/location_code"
         android:layout_width="177dp"
         android:layout_height="51dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="text"
         android:textColor="#FF007F"
         android:textColorHint="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/clear_all_code"
         app:layout_constraintEnd_toEndOf="@+id/phone_code"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/phone_code"
-        app:layout_constraintTop_toBottomOf="@+id/hobbies_code" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"
@@ -49,16 +50,16 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/firstname_code"
-        android:layout_width="167dp"
-        android:layout_height="51dp"
+        android:layout_width="123dp"
+        android:layout_height="50dp"
         android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="text"
         android:textColor="#FF007F"
         android:textColorHint="#333333"
         app:layout_constraintEnd_toStartOf="@+id/lastname_code"
-        app:layout_constraintHorizontal_bias="0.377"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/email_code"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -77,16 +78,16 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email_code"
-        android:layout_width="348dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="148dp"
+        android:layout_width="297dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="160dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:textColor="#E839F6"
         android:textColorHint="#333333"
-        app:layout_constraintEnd_toEndOf="@+id/password_code"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/firstname_code"
+        app:layout_constraintStart_toStartOf="@+id/password_code"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="MissingConstraints" />
 
@@ -107,12 +108,12 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:text="Email Address"
         android:textColor="#00FFFF"
         app:layout_constraintBottom_toTopOf="@+id/email_code"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="@+id/email_code"
         tools:ignore="MissingConstraints" />
 
@@ -129,20 +130,6 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/hobbies_code"
-        android:layout_width="165dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="76dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textColor="#FF007F"
-        android:textColorHint="#333333"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_code" />
-
-    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/phone_code"
         android:layout_width="176dp"
         android:layout_height="49dp"
@@ -152,37 +139,21 @@
         android:textColorHint="#333333"
         app:layout_constraintBottom_toTopOf="@+id/location_code"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_code"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.612" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/password_code"
-        android:layout_width="173dp"
+        android:layout_width="210dp"
         android:layout_height="51dp"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="#C2F70F"
-        app:layout_constraintEnd_toEndOf="@+id/phone_code"
-        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toStartOf="@+id/phone_code"
         app:layout_constraintTop_toBottomOf="@+id/email_code"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hobbies"
-        android:textColor="#00FFFF"
-        app:layout_constraintBottom_toTopOf="@+id/hobbies_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/hobbies_code"
-        app:layout_constraintTop_toBottomOf="@+id/email_code"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -203,14 +174,14 @@
         android:id="@+id/username_code"
         android:layout_width="175dp"
         android:layout_height="48dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="text"
         android:textColor="#FF007F"
         android:textColorHint="#333333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email_code"
+        app:layout_constraintStart_toStartOf="@+id/password_code"
         app:layout_constraintTop_toBottomOf="@+id/email_code" />
 
     <TextView
@@ -230,8 +201,8 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/lastname_code"
-        android:layout_width="165dp"
-        android:layout_height="51dp"
+        android:layout_width="163dp"
+        android:layout_height="48dp"
         android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="text"
@@ -276,27 +247,27 @@
         android:id="@+id/profile_image"
         android:layout_width="165dp"
         android:layout_height="165dp"
+        android:layout_marginBottom="52dp"
         android:src="@drawable/user"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toTopOf="@+id/registration_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/phone_code"
-        app:layout_constraintTop_toBottomOf="@+id/hobbies_code"
         tools:ignore="MissingConstraints" />
 
     <android.widget.Button
         android:id="@+id/profile_bttn"
         android:layout_width="58dp"
         android:layout_height="57dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="132dp"
         android:background="@drawable/round_profile_picture"
         android:text="+"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.878"
-        app:layout_constraintStart_toStartOf="@+id/profile_image"
-        app:layout_constraintTop_toTopOf="@+id/profile_image"
-        app:layout_constraintVertical_bias="0.508"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
