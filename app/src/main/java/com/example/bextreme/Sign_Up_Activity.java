@@ -7,14 +7,21 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.bextreme.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.nio.charset.CharsetEncoder;
 import java.util.regex.Pattern;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Sign_Up_Activity extends AppCompatActivity {
     //create correct password patter
@@ -31,18 +38,23 @@ public class Sign_Up_Activity extends AppCompatActivity {
                     ".{8,}" +               //at least 4 characters
                     "$"); //end of string */
 
+    // dropdown for gender
+    private String[] drop_down_gender_options = {"Female","Male"};
+    private AutoCompleteTextView autoCompleteTextView;
+    private ArrayAdapter <String> adapter;
+
     //fields for data
-    private TextInputLayout firstname_field;
-    private TextInputEditText lastname_field, email_field, password_field, username_field,
-               phone_field, location_field;
+    private TextInputLayout firstname_field, lastname_field, email_field, password_field, username_field, phone_field, location_field;;
 
     //activity for map
-    MainActivity activity = new MainActivity();
+    private MainActivity user_map = new MainActivity();
 
     //buttons used
     private Button register_button, clear_all_button, profile_button;
+
     //profile picture
-    private ImageView profile_picture;
+    private Uri profile_picture_uri;
+    private CircleImageView profile_picture;
     private boolean correct_password = false, correct_email = false, correct_phone_number = false;
 
 
@@ -54,6 +66,8 @@ public class Sign_Up_Activity extends AppCompatActivity {
         initialize_all();
     }
 
+
+    /* MAIN */
     private void initialize_all() {
         register_button = new Button(this);
         clear_all_button = new Button(this);
@@ -62,12 +76,12 @@ public class Sign_Up_Activity extends AppCompatActivity {
 
         //creating the fields in code
         firstname_field = (TextInputLayout) findViewById(R.id.firstname_code);
-        lastname_field = (TextInputEditText)findViewById(R.id.lastname_code);
-        email_field = (TextInputEditText)findViewById(R.id.email_code);
-        password_field = (TextInputEditText)findViewById(R.id.password_code);
-        username_field = (TextInputEditText)findViewById(R.id.username_code);
-        phone_field = (TextInputEditText)findViewById(R.id.phone_code);
-        location_field = (TextInputEditText)findViewById(R.id.location_code);
+        lastname_field = (TextInputLayout)findViewById(R.id.lastname_code);
+        email_field = (TextInputLayout)findViewById(R.id.email_code);
+        password_field = (TextInputLayout)findViewById(R.id.password_code);
+        username_field = (TextInputLayout)findViewById(R.id.username_code);
+        phone_field = (TextInputLayout)findViewById(R.id.phone_code);
+        location_field = (TextInputLayout)findViewById(R.id.location_code);
 
         //set the button to choose the photo from gallery
         profile_button.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +91,18 @@ public class Sign_Up_Activity extends AppCompatActivity {
                 startActivityForResult(intent,3);
             }
         });
+
+        ///dropdown gender
+        autoCompleteTextView = findViewById(R.id.gender_code);
+        adapter = new ArrayAdapter<>(this,R.layout.gender_dropdown, drop_down_gender_options);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(Sign_Up_Activity.this,item,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //take the photo from the user
@@ -84,64 +110,167 @@ public class Sign_Up_Activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
+            profile_picture_uri = data.getData();
             Uri image = data.getData();
             profile_picture.setImageURI(image);
         }
     }
 
-    private void open_sign_in_page_again() {
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
-
-    private User create_user() {
-        User user = null;
-        if (valid_email() && valid_password()) {
-            user.setEmail_address(get_email());
-            user.setPassword(get_password());
+    private boolean valid_firstname() {
+        String firstname = firstname_field.getEditText().getText().toString().trim();
+        char[] array = firstname.toCharArray();
+        for (Character c : array) {
+            if (!Character.isDigit(c)) {
+                firstname_field.setError("Can't contain numbers");
+                return false;
+            }
         }
-        return user;
-    }
-
-    private String get_email() {
-        return email_field.getText().toString().trim();
-    }
-
-    private String get_password() {
-        return password_field.getText().toString().trim();
-    }
-
-    private boolean valid_email() {
-        String email = email_field.getText().toString().trim();
-
-        if (email.isEmpty()) {
-            email_field.setError("Required*");
-            return false;
-        }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            email_field.setError("Incorrect email");
+        if (firstname.isEmpty()) {
+            firstname_field.setError("Required*");
             return false;
         }
         else {
-            email_field.setError(null);
+            firstname_field.setError(null);
+            firstname_field.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean valid_lastname() {
+        String lastname = lastname_field.getEditText().getText().toString().trim();
+        char[] array = lastname.toCharArray();
+        for (Character c : array) {
+            if (!Character.isDigit(c)) {
+                firstname_field.setError("Can't contain numbers");
+                return false;
+            }
+        }
+        if (lastname.isEmpty()) {
+            lastname_field.setError("Required*");
+            return false;
+        }
+        else {
+            lastname_field.setError(null);
+            lastname_field.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean valid_username() {
+        String username = username_field.getEditText().getText().toString().trim();
+        String spaces = "\\A\\w{1,20}\\z";
+
+        if (user_map.getUsers().containsKey(username)) {
+            username_field.setError("Username is already used");
+            return false;
+        }
+        if (username.isEmpty()) {
+            username_field.setError("Required*");
+            return false;
+        }
+        else if (username.length() > 20) {
+            username_field.setError("Username is too long");
+            return false;
+        }
+        else if (username.matches(spaces)) {
+            username_field.setError("Username can't contain spaces");
+            return false;
+        }
+        else {
+            username_field.setError(null);
+            username_field.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean valid_email() {
+        String email = email_field.getEditText().getText().toString().trim();
+        String checkemail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
+        if (email.isEmpty()) {
+            username_field.setError("Required*");
+            return false;
+        }
+        else if (email.matches(checkemail)) {
+            username_field.setError("Invalid email");
+            return false;
+        }
+        else {
+            username_field.setError(null);
+            username_field.setErrorEnabled(false);
             return true;
         }
     }
 
     private boolean valid_password() {
-        String password = password_field.getText().toString().trim();
+        String password = password_field.getEditText().getText().toString().trim();
 
         if (password.isEmpty()) {
-            password_field.setError("Required*");
+            username_field.setError("Required*");
             return false;
         }
-        else if (!PASSWORD_PATTERN.matcher(password).matches()) {
-            password_field.setError("Password too weak");
+        else if (password.matches(PASSWORD_PATTERN.toString())) {
+            username_field.setError("Weak password");
             return false;
         }
         else {
-            password_field.setError(null);
+            username_field.setError(null);
+            username_field.setErrorEnabled(false);
             return true;
         }
     }
+
+    private boolean valid_location() {
+        String location = location_field.getEditText().getText().toString().trim();
+        char[] array = location.toCharArray();
+        for (Character c : array) {
+            if (!Character.isDigit(c)) {
+                location_field.setError("Can't contain numbers");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean valid_phone_number() {
+        String phone = phone_field.getEditText().getText().toString().trim();
+        if (phone.length() != 10) {
+            phone_field.setError("Must be 10 digits");
+            return false;
+        }
+        if (phone.charAt(0) != '0') {
+            phone_field.setError("First digit must be 0");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean trying_to_register() {
+        if (!valid_firstname() | !valid_lastname() | !valid_email() | !valid_password() | !valid_username() | !valid_location() | !valid_phone_number()) return false;
+
+
+        User user = new User(firstname_field.getEditText().getText().toString().trim(),lastname_field.getEditText().getText().toString().trim(),
+                            username_field.getEditText().getText().toString().trim(),phone_field.getEditText().getText().toString().trim(),
+                            email_field.getEditText().getText().toString().trim(),password_field.getEditText().getText().toString().trim(),
+                            profile_picture_uri);
+        if (user_map.getUsers().containsKey(user.getUsername())) return false;
+        else {
+            user_map.getUsers().put(user.getUsername(),user);
+            return true;
+        }
+    }
+
+    private void registration_is_complete() {
+        if (trying_to_register()) {
+            open_sign_in_page_again();
+        }
+        else return;
+    }
+
+    private void open_sign_in_page_again() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }

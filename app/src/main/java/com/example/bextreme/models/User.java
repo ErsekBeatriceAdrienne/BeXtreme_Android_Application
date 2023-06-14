@@ -1,16 +1,12 @@
 package com.example.bextreme.models;
-
-import android.content.ContentUris;
-import android.widget.ImageView;
-
+import android.net.Uri;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class User {
-    private String firstname, lastname, username, email_address, password;
-    private CircleImageView profile_picture;
-    private int phone_number;
+    private String firstname, lastname, username, email_address, password, phone_number;
+    private Uri profile_picture;
 
-    public User(String firstname, String lastname, String username, int phone_number, String email_address, String password, CircleImageView profile_picture) {
+    public User(String firstname, String lastname, String username, String phone_number, String email_address, String password, Uri profile_picture) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -20,11 +16,11 @@ public class User {
         this.profile_picture = profile_picture;
     }
 
-    public CircleImageView getProfile_picture() {
+    public Uri getProfile_picture() {
         return profile_picture;
     }
 
-    public void setProfile_picture(CircleImageView profile_picture) {
+    public void setProfile_picture(Uri profile_picture) {
         this.profile_picture = profile_picture;
     }
 
@@ -68,11 +64,11 @@ public class User {
         this.username = username;
     }
 
-    public int getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(int phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 }

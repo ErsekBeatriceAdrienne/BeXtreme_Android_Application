@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private HashMap <Integer, User> users = new HashMap<>();
+    private HashMap <String, User> users = new HashMap<>();
     private Button sign_in_button, register_button;
     private EditText email_text;
     private String entered_email;
@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sign_up_user(User user) {
-        users.put(user.getPhone_number(),user);
+        users.put(user.getUsername(),user);
     }
 
-    public HashMap <Integer, User> getUsers() {
+    public HashMap <String, User> getUsers() {
         return users;
     }
 
